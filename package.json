@@ -1,7 +1,7 @@
 {
   "name": "signalement_municipal",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -19,7 +19,7 @@
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
     "react-native-maps": "1.20.1",
-    "react-native-web": "^0.20.1"
+    "react-native-web": "0.20.0"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
