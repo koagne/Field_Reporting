@@ -49,10 +49,17 @@ export const submitIncident = async (
 ): Promise<ApiResponse<Incident>> => {
   try {
     const response = await api.post("/posts", data);
-    return {
-      success: true,
-      data: response.data,
-    };
+    if (response.status === 201) {
+      return {
+        success: true,
+        data: response.data,
+      };
+    } else {
+      return {
+        success: false,
+        error: `Unexpected status code: ${response.status}`,
+      };
+    }
   } catch (error) {
     console.error("Error submitting incident:", error);
     return {
