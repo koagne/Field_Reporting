@@ -25,6 +25,26 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Accès requis pour prouver l'incident."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Requis pour certifier le lieu."
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Requis pour planifier le suivi."
+        }
+      ]
+    ]
   }
 }
