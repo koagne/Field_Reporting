@@ -26,10 +26,10 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onPhotoTaken }) => {
   };
 
   const takePhoto = async () => {
-    if (cameraRef) {
-      const photo = await cameraRef.current?.takePictureAsync({ quality: 0.5 });
+    if (cameraRef.current) {
+      const photo = await cameraRef.current.takePictureAsync({ quality: 0.5 });
       if (photo) {
-        onPhotoTaken(photo.uri);
+        setPhotoUri(photo.uri);
         onPhotoTaken(photo.uri);
       }
     }

@@ -10,6 +10,7 @@ import {
   Alert,
   Linking,
   ActivityIndicator,
+  Vibration,
 } from "react-native";
 import CameraCapture from "../components/CameraCapture";
 import * as Calendar from "expo-calendar";
@@ -87,7 +88,7 @@ export const JournalFormScreen: React.FC = () => {
       endDate.setHours(startDate.getHours() + 1);
 
       await Calendar.createEventAsync(selectedCalendarId, {
-        title: 'Nouvelle Entrée Journal',
+        title: '🔧 Suivi Intervention',
         notes: desc,
         location: `https://www.google.com/maps/search/?api=1&query=${coords.latitude},${coords.longitude}`,
         startDate,
@@ -119,6 +120,7 @@ export const JournalFormScreen: React.FC = () => {
         timestamp: Date.now(),
       });
       if (response.success) {
+        Vibration.vibrate();
         await addEventToCalendar(description, location);
         setPhotoUri(null);
         setDescription("");
@@ -198,27 +200,17 @@ export const JournalFormScreen: React.FC = () => {
         </>
       )}
       <TouchableOpacity
-        style={[styles.button, loading && { backgroundColor: "#aaa" }]}
+        style={[
+          styles.button,
+          (loading || !location || !photoUri) && { backgroundColor: "#aaa" },
+        ]}
         onPress={handleSubmit}
-        disabled={loading}
+        disabled={loading || !location || !photoUri}
       >
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <TouchableOpacity
-            style={[
-              styles.button,
-              (loading || !location) && { backgroundColor: "#aaa" },
-            ]}
-            onPress={handleSubmit}
-            disabled={loading || !location}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={styles.buttonText}>Sauvegarder</Text>
-            )}
-          </TouchableOpacity>
+          <Text style={styles.buttonText}>Sauvegarder</Text>
         )}
       </TouchableOpacity>
     </ScrollView>
